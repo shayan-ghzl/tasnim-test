@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState, loadingFeature } from './store/features';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ngrx-test';
+
+  loading$ = this.store.select(loadingFeature.selectLoadingState);
+
+  constructor(
+    private store: Store<AppState>,
+  ) { }
+
 }

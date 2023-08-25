@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import * as SecureStorage from 'secure-web-storage';
 import * as CryptoJS from 'crypto-js';
 
-const SECRET_KEY = 'secret_key';
+const SECRET_KEY = 'tasnim_secret_key';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
+
+  token: string | null = null;
 
   private secureStorage = new SecureStorage(localStorage, {
     // Hash is a one way encryption

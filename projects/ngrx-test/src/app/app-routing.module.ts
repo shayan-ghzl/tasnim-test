@@ -9,7 +9,7 @@ import { taxGuard } from './shared/guards/tax.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
-  { path: 'register-', component: RegisterComponent, canActivate: [registerGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [registerGuard] },
   { path: 'taxs-list', component: TaxsListComponent, canActivate: [taxGuard] },
   { path: '', pathMatch: 'full', redirectTo: 'taxs-list' },
 ];

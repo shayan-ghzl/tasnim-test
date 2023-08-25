@@ -11,6 +11,7 @@ import { TaxsListComponent } from './taxs-list/taxs-list.component';
 import { StoreModule } from './store/store.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AttachTokenInterceptor } from './shared/interceptors/attach-token.interceptor';
+import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AttachTokenInterceptor } from './shared/interceptors/attach-token.inter
     StoreModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AttachTokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AttachTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

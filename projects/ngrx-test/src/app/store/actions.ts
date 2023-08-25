@@ -1,27 +1,20 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { IAge, IAgeOperation, IEyeColor, IFilter, IGender, IRangeDate, IUser } from "src/app/shared/models/models";
+import { ITax } from "../shared/models/models";
 
 
-export const FilterActions = createActionGroup({
-  source: 'Filter API/Manipulation',
+export const LoadingActions = createActionGroup({
+  source: 'Loading API/Manipulation',
   events: {
-    set: props<{ filters: IFilter; }>(),
-    dateUpdate: props<{ dateFilter: IRangeDate; }>(),
-    genderUpdate: props<{ gender: IGender; }>(),
-    ageOperationUpdate: props<{ operation: IAgeOperation; }>(),
-    ageUpdate: props<{ age: IAge; }>(),
-    eyeColorUpdate: props<{ eyeColor: IEyeColor; }>(),
+    set: props<{ enable: boolean; }>(),
   },
 });
 
 // --------------------------------
 
-export const UserActions = createActionGroup({
-  source: 'User API/Manipulation',
+export const TaxActions = createActionGroup({
+  source: 'Tax API/Manipulation',
   events: {
     startEffect: emptyProps(),
-    set: props<{ users: IUser[]; }>(),
-    add: props<{ user: IUser; }>(),
-    remove: props<{ userId: number; }>(),
+    set: props<{ taxs: ITax[]; }>(),
   },
 });
