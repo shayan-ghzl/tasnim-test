@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ITax } from '../shared/models/models';
 
 @Component({
   selector: 'app-taxs-list',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./taxs-list.component.scss']
 })
 export class TaxsListComponent {
+  taxs!: ITax[];
 
 }

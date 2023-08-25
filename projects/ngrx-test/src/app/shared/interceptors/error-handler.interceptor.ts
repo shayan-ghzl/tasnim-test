@@ -1,37 +1,27 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Observable, catchError, throwError } from 'rxjs';
+import { StorageService } from '../services/storage.service';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError(error => {
-        console.log('%cMy Object:', 'color:#0000ff;font-weight:bold;font-size:16px;', error);
         if (error) {
-          if (error.status === 400) {
-            // this.toastr.error('Error 400', error.status);
-          }
-          else if (error.status === 401) {
-            // this.toastr.error('اطلاعات کاربری شما منقضی شده. لطفا مجدد وارد شوید.', error.status);
-
-            localStorage.removeItem('token');
+          if (error.status == 503) {
+            this.storageService.removeMainToken();
             this.router.navigateByUrl('/login');
-
           }
         }
-        return of(error);
+        return throwError(() => new Error('There is an error'));
       })
     );
   }

@@ -59,4 +59,8 @@ export class StorageService {
   setMainToken(value: string) {
     this.secureStorage.setItem('mainauthorization', value);
   }
+
+  removeMainToken() {
+    this.secureStorage.removeItem('mainauthorization');
+  }
 }

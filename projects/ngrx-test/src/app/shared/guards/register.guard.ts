@@ -13,9 +13,13 @@ export const registerGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const store = inject(Store<AppState>);
 
-  if (storageService.token) {
-    router.navigateByUrl('/taxs-list');
-    return false;
+  if (storageService.token !== null) {
+    if (storageService.token) {
+      router.navigateByUrl('/taxs-list');
+      return false;
+    } else {
+      return true;
+    }
   } else {
     if (storageService.getMainToken()) {
       storageService.token = storageService.getMainToken();
@@ -26,17 +30,19 @@ export const registerGuard: CanActivateFn = (route, state) => {
         take: 100
       }).pipe(
         map(response => {
+          store.dispatch(LoadingActions.set({ enable: false }));
           if (response) {
-            storageService.token = storageService.getMainToken();
             store.dispatch(TaxActions.set({ taxs: response.results }));
-            store.dispatch(LoadingActions.set({ enable: false }));
             router.navigateByUrl('/taxs-list');
             return false;
           }
+          storageService.removeMainToken();
+          storageService.token = '';
           return true;
         })
       );
     } else {
+      store.dispatch(LoadingActions.set({ enable: false }));
       return true;
     }
   }

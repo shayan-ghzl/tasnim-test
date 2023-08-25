@@ -1,1 +1,36 @@
-<p>taxs-list works!</p>
+<p-table [value]="taxs" [loading]="true" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Quantity</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-tax>
+    <tr>
+      <td>{{ tax.code }}</td>
+      <td>{{ tax.name }}</td>
+      <td>{{ tax.category }}</td>
+      <td>{{ tax.quantity }}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">Table is empty!</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+
+<ng-template #loadingTemplate>
+  <p-progressSpinner></p-progressSpinner>
+</ng-template>
+
+<ng-template #emptyTableTemplate>
+  <div class="empty-message">
+    <h4>Table is empty!</h4>
+  </div>
+</ng-template>

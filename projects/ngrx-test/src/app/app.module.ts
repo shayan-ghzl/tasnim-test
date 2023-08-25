@@ -12,6 +12,7 @@ import { StoreModule } from './store/store.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AttachTokenInterceptor } from './shared/interceptors/attach-token.interceptor';
 import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.int
     HttpClientModule,
     PrimengModule,
     StoreModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AttachTokenInterceptor, multi: true },

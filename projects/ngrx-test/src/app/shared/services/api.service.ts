@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'projects/ngrx-test/src/environments/environment';
-import { Observable, catchError, delay, of, tap, timeout } from 'rxjs';
+import { Observable, catchError, of, tap, timeout } from 'rxjs';
 import { IResponse, ITaxParam } from '../models/models';
 
 @Injectable({
@@ -34,7 +34,6 @@ export class ApiService {
     }
     return this.http.get<IResponse>(environment.apiUrl + 'inv/Tax', { params: params }).pipe(
       tap(console.log),
-      delay(10000),
       timeout(environment.apiTimeout),
       catchError(() => of<false>(false))
     );
