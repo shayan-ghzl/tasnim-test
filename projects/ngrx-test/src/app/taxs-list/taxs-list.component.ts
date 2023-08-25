@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ITax } from '../shared/models/models';
+import { Store } from '@ngrx/store';
+import { AppState, taxsFeature } from '../store/features';
 
 @Component({
   selector: 'app-taxs-list',
@@ -7,6 +8,10 @@ import { ITax } from '../shared/models/models';
   styleUrls: ['./taxs-list.component.scss']
 })
 export class TaxsListComponent {
-  taxs!: ITax[];
 
+  taxs$ = this.store.select(taxsFeature.selectTaxsState);
+
+  constructor(
+    private store: Store<AppState>,
+  ) { }
 }

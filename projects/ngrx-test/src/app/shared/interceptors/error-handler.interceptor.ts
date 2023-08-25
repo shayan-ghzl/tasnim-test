@@ -18,6 +18,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         if (error) {
           if (error.status == 503) {
             this.storageService.removeMainToken();
+            this.storageService.token = '';
             this.router.navigateByUrl('/login');
           }
         }

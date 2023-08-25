@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { LoadingActions, TaxActions } from '../../store/actions';
 import { AppState } from '../../store/features';
 import { ApiService } from '../services/api.service';

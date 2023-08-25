@@ -7,7 +7,7 @@ import { AppState } from '../../store/features';
 import { map } from 'rxjs';
 import { LoadingActions, TaxActions } from '../../store/actions';
 
-export const registerGuard: CanActivateFn = (route, state) => {
+export const isLoggedInGuard: CanActivateFn = (route, state) => {
   const storageService = inject(StorageService);
   const apiService = inject(ApiService);
   const router = inject(Router);

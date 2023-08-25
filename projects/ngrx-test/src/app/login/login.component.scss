@@ -1,7 +1,14 @@
 :host {
   ::ng-deep {
-    .p-password, .p-inputtext, .p-button {
+    .p-password, .p-inputtext {
       width: 100%;
+    }
+    .p-button, p-button {
+      width: 100%;
+      justify-content: center;
+    }
+    .p-button-label{
+      flex-grow: 0;
     }
   }
 }
