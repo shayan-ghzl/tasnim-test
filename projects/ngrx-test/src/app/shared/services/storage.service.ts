@@ -4,12 +4,19 @@ import * as CryptoJS from 'crypto-js';
 
 const SECRET_KEY = 'tasnim_secret_key';
 
+export enum AuthStatus {
+  pending = 1,
+  reject = 2,
+  passes = 3,
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
   token: string | null = null;
+  authenticationStatus: AuthStatus = AuthStatus.pending;
 
   private secureStorage = new SecureStorage(localStorage, {
     // Hash is a one way encryption

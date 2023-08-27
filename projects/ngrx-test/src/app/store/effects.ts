@@ -14,6 +14,7 @@ export class ApplicationEffects {
       switchMap(() => this.apiService.getTaxs({
         filter: '',
         order: '',
+        distinct_fields: '',
         page: 1,
         take: 100
       }).pipe(

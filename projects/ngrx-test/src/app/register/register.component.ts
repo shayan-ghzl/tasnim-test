@@ -5,7 +5,7 @@ import { Subscription, finalize, tap } from 'rxjs';
 import { TaxActions } from '../store/actions';
 import { AppState } from '../store/features';
 import { Store } from '@ngrx/store';
-import { StorageService } from '../shared/services/storage.service';
+import { AuthStatus, StorageService } from '../shared/services/storage.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,8 +17,8 @@ export class RegisterComponent {
   btnLoading = false;
 
   formGroup = new FormGroup({
-    email: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.email]),
-    password: new FormControl({ value: '', disabled: false }, [Validators.required, Validators.maxLength(24)]),
+    email: new FormControl({ value: '', disabled: false }, { validators: [Validators.required, Validators.email], nonNullable: true }),
+    password: new FormControl({ value: '', disabled: false }, { validators: [Validators.required, Validators.maxLength(24)], nonNullable: true }),
   });
 
   subscription = new Subscription();
@@ -38,14 +38,16 @@ export class RegisterComponent {
     this.btnLoading = true;
 
     this.subscription.add(
-      this.apiService.signup(this.formGroup.value).pipe(
+      this.apiService.signup(this.formGroup.value as { email: string; password: string; }).pipe(
         tap((response) => {
           if (response) {
-            this.storageService.token = response.token;
-            this.storageService.setMainToken(response.token);
+            this.storageService.token = response.access_token;
+            this.storageService.authenticationStatus = AuthStatus.passes;
+            this.storageService.setMainToken(response.access_token);
             this.store.dispatch(TaxActions.startEffect());
             this.router.navigateByUrl('/taxs-list');
           }
+             // TODO: raise a toast
         }),
         finalize(() => {
           this.btnLoading = false;

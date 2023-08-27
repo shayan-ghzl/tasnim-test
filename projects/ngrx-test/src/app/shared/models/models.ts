@@ -4,6 +4,7 @@ export interface ITaxParam {
   take: number;
   order: string;
   filter: string;
+  distinct_fields: string;
 }
 
 export interface ITax {
