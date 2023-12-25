@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-// import * as SecureStorage from 'secure-web-storage';
-import { SecureStorage } from 'secure-web-storage';
 import * as CryptoJS from 'crypto-js';
+import * as SecureStorage from 'secure-web-storage';
 
 const SECRET_KEY = 'tasnim_secret_key';
 

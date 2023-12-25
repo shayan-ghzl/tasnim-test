@@ -1,17 +1,29 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../shared/services/api.service';
-import { Subscription, finalize, tap } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from '../store/features';
-import { TaxActions } from '../store/actions';
-import { AuthStatus, StorageService } from '../shared/services/storage.service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { Subscription, finalize, tap } from 'rxjs';
+import { ApiService } from '../shared/services/api.service';
+import { AuthStatus, StorageService } from '../shared/services/storage.service';
+import { TaxActions } from '../store/actions';
+import { AppState } from '../store/features';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    PasswordModule,
+    InputTextModule
+  ],
+  standalone: true
 })
 export class LoginComponent {
 

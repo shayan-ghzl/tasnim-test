@@ -1,17 +1,29 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { ApiService } from '../shared/services/api.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 import { Subscription, finalize, tap } from 'rxjs';
+import { ApiService } from '../shared/services/api.service';
+import { AuthStatus, StorageService } from '../shared/services/storage.service';
 import { TaxActions } from '../store/actions';
 import { AppState } from '../store/features';
-import { Store } from '@ngrx/store';
-import { AuthStatus, StorageService } from '../shared/services/storage.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    PasswordModule,
+    InputTextModule
+  ],
+  standalone: true
 })
 export class RegisterComponent {
   btnLoading = false;
@@ -47,7 +59,7 @@ export class RegisterComponent {
             this.store.dispatch(TaxActions.startEffect());
             this.router.navigateByUrl('/taxs-list');
           }
-             // TODO: raise a toast
+          // TODO: raise a toast
         }),
         finalize(() => {
           this.btnLoading = false;
