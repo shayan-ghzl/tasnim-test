@@ -1,8 +1,8 @@
-import { HttpBackend, HttpClient, HttpContext, HttpContextToken, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContextToken, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'projects/ngrx-test/src/environments/environment';
 import { Observable, catchError, of, tap, timeout } from 'rxjs';
-import { IResponse, ITaxParam } from '../models/models';
+import { IQuery, IResponse, ITaxParam } from '../models/models';
 
 export const CACHE_OPTION = new HttpContextToken<{ cache: boolean, expiresIn?: number; }>(() => ({ cache: false }));
 
@@ -50,10 +50,9 @@ export class ApiService {
     );
   }
 
-  getTaxs(param: ITaxParam): Observable<IResponse | false> {
+  getTaxs(param?: Partial<ITaxParam>): Observable<IResponse | false> {
     // way one
-    let headers = new HttpHeaders();
-    headers = headers.set('usedforauthstatus', 'true');
+    let headers = new HttpHeaders().set('usedforauthstatus', 'true');
 
     // way two
     // const context = new HttpContext();
@@ -61,12 +60,11 @@ export class ApiService {
     //   cache: true
     // });
 
-    let params = new HttpParams();
-    for (const [key, value] of Object.entries(param)) {
-      params = params.append(key, value);
-    }
+    const url = environment.apiUrl + 'erp/inv/Tax';
+
+    const params = new HttpParams().appendAll(this.removeUndefinedProperties(param));
     // way one
-    return this.http.get<IResponse>(environment.apiUrl + 'erp/inv/Tax', { headers: headers, params: params }).pipe(
+    return this.http.get<IResponse>(url, { headers: headers, params: params }).pipe(
       tap(console.log),
       timeout(environment.apiTimeout),
       catchError(() => of<false>(false))
@@ -86,6 +84,14 @@ export class ApiService {
     //   catchError(() => of<false>(false))
     // );
   }
-
-
+   removeUndefinedProperties(obj?: Partial<IQuery>): IQuery {
+    if (!obj) {
+      return {};
+    }
+    const filteredObject: IQuery = Object.fromEntries(
+      Object.entries(obj).filter(value => value !== undefined)
+    ) as IQuery;
+  
+    return filteredObject;
+  }
 }

@@ -1,3 +1,3 @@
-<div class="example-box" cdkDragBoundary=".boundary-area" cdkDrag>
+<div class="example-box" cdkDragBoundary=".boundary-area" cdkDrag (click)="outEvent.emit('Hello world')">
   {{data}}
 </div>

@@ -1,5 +1,8 @@
+export interface IQuery {
+	[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+}
 
-export interface ITaxParam {
+export interface ITaxParam extends IQuery {
   page: number;
   take: number;
   order: string;
